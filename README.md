@@ -1,3 +1,40 @@
+## <input>タグについて
+<label for="family_name">姓</label>
+<input type="text" id="family_name" name="family_name">
+labelタグのfor属性は、inputタグのid属性と対になって、
+どのinputタグのためのラベルであるかを示します。
+
+<input type="text" id="family_name" name="family_name" placeholder="山田">
+placeholder 属性をつけることで入力例を示せます。
+
+<input type="text" id="family_name" name="family_name" required>
+required 属性をつけると、入力必須となります。
+
+以下のCSS を記述することで、
+    label:has(+ input[required])::after {
+      content: "【必須】";
+      color: red;
+    }
+
+姓のあとに赤く【必須】と表示されます。
+(詳細は css has擬似クラス https://developer.mozilla.org/ja/docs/Web/CSS/:has、
+after擬似要素 https://developer.mozilla.org/ja/docs/Web/CSS/::after を参照)
+
+<input type="email">
+<input type="tel">
+で、iPhone等では、メール入力用、電話番号入力用のキーボードになるので、利便性が高まります。
+
+<input type="number" min="10" max="100" step="5" value="50">
+既定値として50が入力された入力枠です。最小値10, 最大値100を設定しています。5つ刻みで値が変化します。
+手入力のほか、マウス操作による値変更も可能です。
+
+<input type="date">
+日付入力用です。カレンダー表示から日付を選択できます。
+
+より詳しくは、MDN公式サイト https://developer.mozilla.org/ja/docs/Web/HTML/Element/input をご覧ください。
+
+
+
 # 初学者の方へ
 
 ## 物語のあらすじを掴みましょう
