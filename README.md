@@ -1,3 +1,51 @@
+-- lpad(cast(goods_cd::integer+60 as character varying), 10 , '0') は goods_cd に60を加えた商品コードです。
+-- lpad(文字列, 10, '0') で文字列が10桁になるよう、左側に'0'埋めします。
+-- goods_cd::ingeger は、文字列から整数型へのキャストです。cast(goods_cd as integer) と書くこともできます。
+-- cast(goods_cd::integer+60 as character varying) で、整数型にキャストしたのち、再度文字列にキャストしています。
+
+-- 高級品の追加
+INSERT INTO goods 
+(goods_cd, 
+goods_class, 
+goods_name, 
+goods_notes, 
+goods_picture_path, 
+goods_price)
+SELECT 
+lpad(cast(goods_cd::integer+60 as character varying), 10 , '0'), -- 商品コードを+60します
+goods_class, 
+CONCAT('高級', goods_name), -- 「高級」を商品名の前に付けます
+goods_notes,
+goods_picture_path,
+goods_price * 1.5           -- 価格は五割増しです
+FROM goods
+LIMIT 60;
+
+-- 最高級品の追加
+INSERT INTO goods 
+(goods_cd, 
+goods_class, 
+goods_name, 
+goods_notes, 
+goods_picture_path, 
+goods_price)
+SELECT 
+lpad(cast(goods_cd::integer+120 as character varying), 10 , '0'), -- 商品コードを+120します
+goods_class, 
+CONCAT('最高級', goods_name), -- 「最高級」を商品名の前に付けます
+goods_notes,
+goods_picture_path,
+goods_price * 2               -- 価格は二倍です
+FROM goods
+LIMIT 60;
+
+-- 確認用SQL
+SELECT goods_cd, goods_name, goods_price FROM goods;
+
+-- 削除用SQL
+DELETE FROM goods WHERE goods_name LIKE '%高級%';
+
+
 ## <input>タグについて
 <label for="family_name">姓</label>
 <input type="text" id="family_name" name="family_name">
